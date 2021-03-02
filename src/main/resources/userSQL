@@ -1,0 +1,26 @@
+--------------------------------------------------------
+--  已建立檔案 - 星期二-3月-02-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table WORKOUT_USER
+--------------------------------------------------------
+
+  CREATE TABLE "SYSTEM"."WORKOUT_USER" 
+   (	"ID" NUMBER(*,0), 
+	"NAME" VARCHAR2(50 BYTE), 
+	"SEX" NUMBER(*,0), 
+	"BIRTHDAY" DATE, 
+	"EMAIL" VARCHAR2(255 BYTE), 
+	"PASSWORD" VARCHAR2(50 BYTE), 
+	"CELLPHONE" VARCHAR2(20 BYTE), 
+	"ROLE" NUMBER(*,0), 
+	"STATUS" NUMBER(*,0)
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+REM INSERTING into SYSTEM.WORKOUT_USER
+SET DEFINE OFF;
+Insert into SYSTEM.WORKOUT_USER (ID,NAME,SEX,BIRTHDAY,EMAIL,PASSWORD,CELLPHONE,ROLE,STATUS) values (1,'Jerry',0,to_date('1999-08-17','YYYY-MM-DD'),'test@gmail.com','test123','0948621459',1,1);
