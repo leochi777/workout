@@ -10,7 +10,7 @@ import java.sql.Date;
 @Table(name = "WORKOUT_USER")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_ID")
     private Long id;
     private String email;
     private String password;
