@@ -40,12 +40,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(User user) {
-
+        this.userRepository.save(user);
     }
 
     @Override
     @Transactional
-    public void deleteUser(User user) {
-        this.userRepository.deleteById(user.getId());
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
     }
 }

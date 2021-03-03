@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,4 +21,5 @@ public class User {
     private String cellphone;
     private int role;
     private int status;
+
 }
