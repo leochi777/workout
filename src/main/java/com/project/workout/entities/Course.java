@@ -23,6 +23,5 @@ public class Course {
     private String memo;
     private Timestamp createTime;
     private Timestamp updateTime;
-    private Long userId;
     private int status;
 }

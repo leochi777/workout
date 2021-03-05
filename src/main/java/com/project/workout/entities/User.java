@@ -21,5 +21,8 @@ public class User {
     private String cellphone;
     private int role;
     private int status;
+    @OneToMany(targetEntity = Course.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private List<Course> course;
 
 }

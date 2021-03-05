@@ -30,7 +30,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/test")
-    public List<Object> test() {
+    public List<OrderResponse> test() {
         return userRepository.getJoinInform();
     }
 
