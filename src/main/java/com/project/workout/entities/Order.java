@@ -2,20 +2,29 @@ package com.project.workout.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Data
-@Table(name = "WORKOUT_ORDER")
+@Table(name = "order")
 public class Order {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
-    private Long courseId;
-    private Timestamp createTime;
-    private Timestamp updateTime;
+
+    @Column(name = "USER_NO")
+    private String user_no;
+
+    @Column(name = "PRODUCT_NOS")
+    private String product_nos;
+
+    @Column(name = "STATUS")
     private int status;
+
+    @Column(name = "CREATE_TIME")
+    private Timestamp createTime;
+
+    @Column(name = "UPDATE_TIME")
+    private Timestamp updateTime;
 }
