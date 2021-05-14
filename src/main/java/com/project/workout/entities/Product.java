@@ -22,7 +22,7 @@ public class Product {
     private String name;
 
     @Column(name="PRICE")
-    private int price;
+    private Integer price;
 
     @Column(name="CREATE_TIME")
     private Timestamp create_time;

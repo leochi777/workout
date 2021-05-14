@@ -5,11 +5,13 @@ import com.project.workout.dao.UserRepository;
 import com.project.workout.dto.OrderResponse;
 import com.project.workout.entities.User;
 import com.project.workout.service.UserService;
+import com.project.workout.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,27 +22,35 @@ import java.util.Map;
 public class UserController {
 
     private UserService userService;
-//    ObjectMapper objectMapper = new ObjectMapper();
-    private final Map<String,Object> returnMap=new HashMap<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final Map<String, Object> returnMap = new HashMap<>();
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    @Autowired
-    private UserRepository userRepository;
-    @GetMapping("/test")
-    public List<OrderResponse> test() {
-        return userRepository.getJoinInform();
-    }
-
     @GetMapping("/users")
-    public ResponseEntity<Map<String,Object>> getUsers() {
-        ResponseEntity<Map<String,Object>> resp = null;
+    public ResponseEntity<String> getUsers() {
+        ResponseEntity<String> resp = null;
         try {
             List<User> dataList = this.userService.getUsers();
-            returnMap.put("dataList",dataList);
-            resp = new ResponseEntity<>(returnMap, HttpStatus.OK);
+            returnMap.put("dataList", dataList);
+            String result=objectMapper.writeValueAsString(new ResponseVO<List<User>>(HttpStatus.OK.value(), dataList, "success"));
+            resp = new ResponseEntity<>(result,HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    @GetMapping("/users/1")
+    public ResponseVO<Map> getUsers1() {
+        ResponseVO<Map> resp=null;
+        try {
+            List<User> dataList = this.userService.getUsers();
+            returnMap.put("dataList", dataList);
+            resp = new ResponseVO<Map>(HttpStatus.OK.value(),returnMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<String> insertUser(User user) {
+    public ResponseEntity<String> insertUser(@Valid @RequestBody User user) {
         ResponseEntity<String> resp = null;
         StringBuilder sbd = new StringBuilder();
         try {

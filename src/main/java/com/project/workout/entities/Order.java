@@ -20,7 +20,7 @@ public class Order {
     private String product_nos;
 
     @Column(name = "STATUS")
-    private int status;
+    private Integer status;
 
     @Column(name = "CREATE_TIME")
     private Timestamp createTime;

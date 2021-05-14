@@ -2,6 +2,9 @@ package com.project.workout.entities;
 
 import lombok.Data;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -17,26 +20,34 @@ public class User {
     @Column(name="NO")
     private String no;
 
+    @NotBlank
     @Column(name="NAME")
     private String name;
 
+    @NotNull
     @Column(name="SEX")
-    private int sex;
+    private Integer sex;
 
     @Column(name="BIRTHDAY")
     private Date birthday;
 
+    @Email
     @Column(name="EMAIL")
     private String email;
 
+    @NotBlank
     @Column(name="PASSWORD")
     private String password;
 
+    @NotBlank
     @Column(name="TEL")
     private String tel;
 
+    @Column(name="LINK")
+    private String link;
+
     @Column(name="ROLE")
-    private int role;
+    private Integer role;
 
     @Column(name="CREATE_TIME")
     private Timestamp create_time;
