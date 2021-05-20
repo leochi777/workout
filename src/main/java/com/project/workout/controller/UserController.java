@@ -3,6 +3,7 @@ package com.project.workout.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.workout.dao.UserRepository;
 import com.project.workout.dto.OrderResponse;
+import com.project.workout.dto.UserDto;
 import com.project.workout.entities.User;
 import com.project.workout.service.UserService;
 import com.project.workout.vo.ResponseVO;
@@ -31,17 +32,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<String> getUsers() {
-        ResponseEntity<String> resp = null;
-        try {
-            List<User> dataList = this.userService.getUsers();
-            returnMap.put("dataList", dataList);
-            String result=objectMapper.writeValueAsString(new ResponseVO<List<User>>(HttpStatus.OK.value(), dataList, "success"));
-            resp = new ResponseEntity<>(result,HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resp;
+    public ResponseEntity<UserDto> getUsers() {
+        List<User> users=userService.getUsers();
+        users.stream()
     }
 
     @GetMapping("/users/1")
