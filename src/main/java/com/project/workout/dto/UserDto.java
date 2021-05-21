@@ -1,10 +1,24 @@
 package com.project.workout.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
+    @NotBlank
     private String name;
+
+    @NotNull
     private Integer sex;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String password;
+
+    @NotBlank
     private String tel;
 
     public String getName() {

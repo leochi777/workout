@@ -1,28 +1,24 @@
 package com.project.workout.vo;
 
-public class ResponseVO<T> {
+public class ResponseVO {
     private int code;
-    private T Data;
+    private String data;
     private String msg;
 
-    public ResponseVO(int code, T data, String msg) {
+    public ResponseVO(int code, String data, String msg) {
         this.code = code;
-        Data = data;
+        this.data = data;
         this.msg = msg;
     }
 
-    public ResponseVO(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public ResponseVO(int code, T data) {
-        this.code = code;
-        Data = data;
-    }
     public ResponseVO(int code) {
         this.code = code;
     }
+
+    public ResponseVO() {
+
+    }
+
     public int getCode() {
         return code;
     }
@@ -31,12 +27,12 @@ public class ResponseVO<T> {
         this.code = code;
     }
 
-    public T getData() {
-        return Data;
+    public String getData() {
+        return data;
     }
 
-    public void setData(T data) {
-        Data = data;
+    public void setData(String data) {
+        this.data = data;
     }
 
     public String getMsg() {

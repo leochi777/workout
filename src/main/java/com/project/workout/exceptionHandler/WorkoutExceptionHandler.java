@@ -15,7 +15,7 @@ public class WorkoutExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handle(MethodArgumentNotValidException e) throws JsonProcessingException {
-        String result = objectMapper.writeValueAsString(new ResponseVO<String>(HttpStatus.BAD_REQUEST.value(), null, "請求錯誤"));
+        String result = objectMapper.writeValueAsString(new ResponseVO(HttpStatus.BAD_REQUEST.value(), null, "請求錯誤"));
         return new ResponseEntity<String>(result, HttpStatus.BAD_REQUEST);
     }
 }

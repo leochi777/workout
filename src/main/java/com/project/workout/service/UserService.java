@@ -1,5 +1,6 @@
 package com.project.workout.service;
 
+import com.project.workout.dto.UserDto;
 import com.project.workout.entities.User;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface UserService {
 
     public String hello();
 
-    public List<User> getUsers();
+    public List<UserDto> getUsers();
 
-    public void insertUser(User user);
+    public void insertUser(UserDto userDto);
 
     public void updateUser(User user);
 

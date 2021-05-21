@@ -1,17 +1,29 @@
 package com.project.workout.serviceImpl;
 
 import com.project.workout.dao.UserRepository;
+import com.project.workout.dto.UserDto;
 import com.project.workout.entities.User;
 import com.project.workout.service.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private ModelMapper modelMapper;
 
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -27,13 +39,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers() {
-        return this.userRepository.findAll();
+    public List<UserDto> getUsers() {
+        List<User> users=this.userRepository.findAll();
+        return users.stream()
+                .map(this::covertToDto)
+                .collect(Collectors.toList());
+
     }
 
     @Override
     @Transactional
-    public void insertUser(User user) {
+    public void insertUser(UserDto userDto) {
+        User user=covertToEntity(userDto);
+        System.out.println(user);
         this.userRepository.save(user);
     }
 
@@ -47,5 +65,18 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Long id) {
         this.userRepository.deleteById(id);
+    }
+
+
+    private UserDto covertToDto(User user){
+        UserDto userDto=modelMapper.map(user,UserDto.class);
+        userDto.setPassword("544545");
+        return userDto;
+    }
+
+    private User covertToEntity(UserDto userDto) {
+        User user = modelMapper.map(userDto, User.class);
+        user.setCreate_time(new Timestamp(new Date().getTime()));
+        return user;
     }
 }

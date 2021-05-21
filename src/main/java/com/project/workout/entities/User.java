@@ -32,6 +32,7 @@ public class User {
     private Date birthday;
 
     @Email
+    @NotBlank
     @Column(name="EMAIL")
     private String email;
 
