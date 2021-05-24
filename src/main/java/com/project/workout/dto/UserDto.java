@@ -3,6 +3,7 @@ package com.project.workout.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class UserDto {
     @NotBlank
@@ -10,6 +11,9 @@ public class UserDto {
 
     @NotNull
     private Integer sex;
+
+    @NotBlank
+    private Date birthday;
 
     @Email
     @NotBlank
@@ -59,5 +63,13 @@ public class UserDto {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

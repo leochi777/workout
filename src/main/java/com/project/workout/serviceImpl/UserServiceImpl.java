@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLDataException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -57,8 +58,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateUser(User user) {
-        this.userRepository.save(user);
+    public void updateUser(UserDto userDto) throws Exception {
+        boolean ck=this.userRepository.findByNameAndEmail(userDto.getName(),userDto.getEmail());
+        if(ck){
+            User user=covertToEntity(userDto);
+            user.setUpdate_time(new Timestamp(new Date().getTime()));
+            this.userRepository.save(user);
+        }else{
+            throw new SQLDataException("查無此資料");
+        }
+
     }
 
     @Override
@@ -70,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDto covertToDto(User user){
         UserDto userDto=modelMapper.map(user,UserDto.class);
-        userDto.setPassword("544545");
+        userDto.setPassword(user.getPassword()+"toDto");
         return userDto;
     }
 

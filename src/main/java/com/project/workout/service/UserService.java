@@ -11,11 +11,11 @@ public interface UserService {
 
     public String hello();
 
-    public List<UserDto> getUsers();
+    public List<UserDto> getUsers() throws Exception;
 
-    public void insertUser(UserDto userDto);
+    public void insertUser(UserDto userDto) throws Exception;
 
-    public void updateUser(User user);
+    public void updateUser(UserDto userDto) throws Exception;
 
-    public void deleteUser(Long id);
+    public void deleteUser(Long id) throws Exception;
 }

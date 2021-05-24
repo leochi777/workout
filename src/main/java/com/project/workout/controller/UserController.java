@@ -60,23 +60,16 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<String> updateUser(User user) {
-        ResponseEntity<String> resp = null;
-        StringBuilder sbd = new StringBuilder();
+    public ResponseEntity<ResponseVO> updateUser(@Valid @RequestBody UserDto userDto) {
         try {
-            if (user != null) {
-                this.userService.updateUser(user);
-                sbd.append("success");
-                resp = new ResponseEntity<>(sbd.toString(), HttpStatus.OK);
-
-            }
+            this.userService.updateUser(userDto);
+            responseVO.setCode(HttpStatus.OK.value());
+            responseVO.setMsg("更新成功");
         } catch (Exception e) {
-            e.printStackTrace();
-            sbd.append("fail");
-            resp = new ResponseEntity<>(sbd.toString(), HttpStatus.NOT_FOUND);
-
+            responseVO.setCode(HttpStatus.BAD_REQUEST.value());
+            responseVO.setMsg("更新失敗");
         }
-        return resp;
+        return ResponseEntity.status(responseVO.getCode()).body(responseVO);
     }
 
     @DeleteMapping("/user/{id}")

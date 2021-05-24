@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
-
+    public boolean findByNameAndEmail(String name,String email);
 }
