@@ -73,21 +73,15 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        ResponseEntity<String> resp = null;
-        StringBuilder sbd = new StringBuilder();
+    public ResponseEntity<ResponseVO> deleteUser(@PathVariable Long id) {
         try {
-            if (id != null) {
-                this.userService.deleteUser(id);
-                sbd.append("success");
-                resp = new ResponseEntity<>(sbd.toString(), HttpStatus.OK);
-            }
+            this.userService.deleteUser(id);
+            responseVO.setCode(HttpStatus.OK.value());
+            responseVO.setMsg("刪除成功");
         } catch (Exception e) {
-            e.printStackTrace();
-            sbd.append("fail");
-            resp = new ResponseEntity<>(sbd.toString(), HttpStatus.NOT_FOUND);
-
+            responseVO.setCode(HttpStatus.BAD_REQUEST.value());
+            responseVO.setMsg("刪除失敗");
         }
-        return resp;
+        return ResponseEntity.status(responseVO.getCode()).body(responseVO);
     }
 }
