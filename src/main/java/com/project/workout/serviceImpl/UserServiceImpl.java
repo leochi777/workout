@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
     public void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getUsers() {
-        List<User> users=this.userRepository.findAll();
+        List<User> users = this.userRepository.findAll();
         return users.stream()
                 .map(this::covertToDto)
                 .collect(Collectors.toList());
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void insertUser(UserDto userDto) {
-        User user=covertToEntity(userDto);
+        User user = covertToEntity(userDto);
         System.out.println(user);
         this.userRepository.save(user);
     }
@@ -59,15 +60,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(UserDto userDto) throws Exception {
-        boolean ck=this.userRepository.findByNameAndEmail(userDto.getName(),userDto.getEmail());
-        if(ck){
-            User user=covertToEntity(userDto);
-            user.setUpdate_time(new Timestamp(new Date().getTime()));
-            this.userRepository.save(user);
-        }else{
-            throw new SQLDataException("查無此資料");
+        User old_user = this.userRepository.findByEmail(userDto.getEmail());
+        if (old_user != null) {
+            User new_user = covertToEntity(userDto);
+            new_user.setId(old_user.getId());
+            new_user.setUpdate_time(new Timestamp(new Date().getTime()));
+            this.userRepository.save(new_user);
+        } else {
+            throw new Exception("查無此資料");
         }
-
     }
 
     @Override
@@ -77,9 +78,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    private UserDto covertToDto(User user){
-        UserDto userDto=modelMapper.map(user,UserDto.class);
-        userDto.setPassword(user.getPassword()+"toDto");
+    private UserDto covertToDto(User user) {
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+        userDto.setPassword(user.getPassword() + "toDto");
         return userDto;
     }
 
